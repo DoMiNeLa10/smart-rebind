@@ -1,0 +1,48 @@
+*Disclaimer:* This code might not work well in all cases, as it wasn't tested
+ much yet.
+
+* Utilities for rebinding keys in Emacs
+These utilities allow to rebind keys in Emacs in all major modes. Some major
+modes cause problems because they bind standard keybindings to their own
+commands, which don't check if they were rebound in the first place.
+
+One such mode is ~nxml-mode~, which rebinds =M-h= as ~nxml-mark-paragraph~.
+This can cause problems when someone rebound =M-h= in their configuration.
+
+It's possible to write configuration manually for each major mode to fix these
+problems, but that takes time and adds boilerplate code which does the same
+thing, and it makes it harder to maintain changes.
+
+* Using these utilities
+** Rebinding
+This repository comes with =smart-rebind.el=, which defines
+~smart-rebind-keys~. It allows to move one standard keybinding from one key to
+another.
+
+=smart-rebind.el= provides the feature ~smart-rebind~ as well as having magic
+autoload comments. Use whichever way to load it that fits your needs.
+
+For example, to make =C-x C-h= do the same thing as =M-h= (which is bound to
+~mark-paragraph~ by default):
+#+BEGIN_SRC elisp
+(smart-rebind-keys "M-h" "C-x C-h")
+#+END_SRC
+
+** Binding
+=smart-bind.el= defines ~smart-bind-key~, which allows to make sure that
+specified key always executes preferred command, and removes keybindings which
+override it in major modes.
+
+Similarly to =smart-rebind.el=, this file provides the feature ~smart-bind~.
+Autoload comments are present in it too.
+
+For example, to make sure that =M-h= is always bound to ~backward-kill-word~:
+#+BEGIN_SRC elisp
+(smart-bind-key "M-h" #'backward-kill-word)
+#+END_SRC
+
+** Using both utilities at the same time
+Each of these utilities adds a hook (at the end of the list of hooks) that are
+run every time a major mode is changed. This means that the order in which
+first calls to ~smart-bind-key~ and ~smart-rebind-keys~ are included in files
+matters.
