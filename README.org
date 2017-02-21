@@ -1,6 +1,10 @@
 *Disclaimer:* This code might not work well in all cases, as it wasn't tested
  much yet.
 
+This code doesn't work right as of now when the same key combination is moved
+to another and then bound to other key. I hope I'll find a way to make it
+reliably work.
+
 * Utilities for rebinding keys in Emacs
 These utilities allow to rebind keys in Emacs in all major modes. Some major
 modes cause problems because they bind standard keybindings to their own
