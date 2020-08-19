@@ -1,10 +1,6 @@
 ;;; smart-rebind.el --- rebind keys in all major modes
 
 ;;; Code:
-
-(eval-when-compile
-  (require 'cl))
-
 (defvar smart-rebind-keys-list '()
   "List used internally by `smart-rebind-keys'. Do not modify it
 on your own.")

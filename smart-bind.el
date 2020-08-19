@@ -1,10 +1,6 @@
 ;;; smart-bind.el --- bind keys in all major modes
 
 ;;; Code:
-
-(eval-when-compile
-  (require 'cl))
-
 (defvar smart-bind-key-list '()
   "List used internally by `smart-bind-key'. Do not modify it on
 your own.")
